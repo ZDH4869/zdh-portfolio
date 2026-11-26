@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef2f8">
+  <meta name="description" content="张德海的能力展示卡。AI coding、AI 工作流与产品 PPT。">
+  <title>张德海能力展示卡</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./portfolio.css">
+  <script defer src="./portfolio.js"></script>
+</head>
+<body>
+  <main class="portfolio">
+    <header class="masthead">
+      <div class="identity-mark" aria-hidden="true">DH</div>
+      <h1>张德海能力展示卡</h1>
+    </header>
+
+    <nav class="categories" aria-label="作品分类">
+      <button type="button" aria-current="true" data-group="coding">AI coding</button>
+      <button type="button" data-group="workflow">AI 工作流</button>
+      <button type="button" data-group="ppt">产品 PPT</button>
+    </nav>
+
+    <section class="player" aria-label="作品轮播" aria-roledescription="轮播">
+      <div class="screen">
+        <button type="button" class="artwork" id="expand-artwork" aria-label="放大 XAJ 洪水预报平台">
+          <span class="frame" id="frame">
+            <picture class="slide-media">
+              <img src="./assets/xaj-overview-720.webp"
+                srcset="./assets/xaj-overview-720.webp 720w, ./assets/xaj-overview-840.webp 840w, ./assets/xaj-overview-1440.webp 1440w"
+                sizes="(max-width: 600px) calc(100vw - 24px), (max-width: 1560px) calc(100vw - 56px), 1504px"
+                width="2482" height="1355" fetchpriority="high" alt="XAJ 洪水预报平台原始界面，流域地图和预报参数">
+            </picture>
+          </span>
+          <span class="expand-label" aria-hidden="true">放大原图</span>
+        </button>
+        <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+
+      <div class="player-footer">
+        <div class="slide-caption" id="slide-caption" aria-live="off">
+          <h2 id="slide-title">XAJ 洪水预报平台</h2>
+          <p id="slide-description">毕业设计 · 原始平台画面，可展开查看预报结果</p>
+        </div>
+        <div class="controls" aria-label="轮播控制">
+          <button type="button" class="control" id="prev-slide" aria-label="上一张"><span class="chevron previous" aria-hidden="true"></span></button>
+          <span class="position" id="slide-position" aria-label="当前类别第 1 张，共 2 张">1 / 2</span>
+          <button type="button" class="control" id="next-slide" aria-label="下一张"><span class="chevron" aria-hidden="true"></span></button>
+          <button type="button" class="control playback" id="toggle-playback" aria-label="暂停自动播放"><span aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-bar">
+      <h2 id="viewer-title"></h2>
+      <div class="viewer-controls">
+        <button type="button" id="viewer-alternate" hidden>查看预报结果</button>
+        <button type="button" id="viewer-zoom" aria-pressed="false">放大细节</button>
+        <button type="button" id="viewer-close" autofocus>关闭</button>
+      </div>
+    </div>
+    <div class="viewer-body" id="viewer-body" tabindex="0" aria-label="原图预览">
+      <img id="viewer-image" alt="">
+      <p id="viewer-error" hidden role="status">暂时无法显示原图</p>
+    </div>
+  </dialog>
+</body>
+</html>
