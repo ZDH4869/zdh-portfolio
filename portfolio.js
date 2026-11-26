@@ -6,9 +6,9 @@
       description: "毕业设计 · 原始平台画面，可展开查看预报结果",
       alt: "XAJ 洪水预报平台原始界面，流域地图和预报参数",
       alternate: "xaj-result.png"},
-    {group: "coding", file: "hydrolab", title: "HydroLab 水文计算工作台",
-      description: "原始运行录屏 · 洪水过程插值、RK4 调洪与结果下载",
-      alt: "HydroLab 水文工作台运行录屏", animated: true},
+    {group: "coding", file: "hydrolab", title: "HydroLab 水文计算助手",
+      description: "运行录屏 · 插值对照、泰森多边形与 RK4 调洪",
+      alt: "HydroLab 运行录屏，展示插值对照、泰森多边形面雨量和 RK4 调洪", animated: true},
     {group: "workflow", file: "bim-iteration", title: "PKPM AI 协作建模｜开发与迭代",
       description: "需求澄清、构件试跑与复盘，用冷水机组插入点偏移串联一轮改进",
       alt: "BIMBase AI 建模开发迭代图，包含需求澄清、规则编写、模型试跑、偏移排查和复盘"},
@@ -72,7 +72,7 @@
 
   function setResponsiveSource(image, slide, reduced = motion.matches) {
     if (slide.animated) {
-      image.src = reduced ? "./assets/hydrolab-poster.webp" : original(slide);
+      image.src = reduced ? "./assets/hydrolab-poster.webp" : "./assets/hydrolab-animation.webp";
       return;
     }
     const base = "./assets/" + slide.file;
