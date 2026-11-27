@@ -16,13 +16,13 @@ if (isWithin(repository, output) || isWithin(output, repository)) {
 }
 
 const stills = [
-  "xaj-overview", "bim-iteration", "bim-skills", "dify-review", "ppt-framework",
+  "xaj-overview", "xaj-result", "bim-iteration", "bim-skills", "dify-review", "ppt-framework",
   "ppt-library", "ppt-agent", "ppt-collaboration", "ppt-tank",
 ];
 const files = [
   "index.html", "portfolio.css", "portfolio.js", "assets/xaj-overview-840.webp",
   "assets/hydrolab-animation.webp", "assets/hydrolab-poster.webp",
-  "assets/original/hydrolab.gif", "assets/original/xaj-result.png",
+  "assets/original/hydrolab.gif",
   ...stills.flatMap((name) => [
     "assets/" + name + "-720.webp", "assets/" + name + "-1440.webp", "assets/original/" + name + ".png",
   ]),

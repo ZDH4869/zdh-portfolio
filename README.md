@@ -6,7 +6,7 @@
 
 ## 页面演示
 
-动图录自作品集的实际页面，依次展示 XAJ 首图、HydroLab 录屏、AI 工作流、产品 PPT 和原图放大。
+动图录自作品集的实际页面，依次展示 XAJ 首图、XAJ 洪水预报结果、HydroLab 录屏、AI 工作流、产品 PPT 和原图放大。
 
 ![张德海能力展示卡的桌面端实录，切换三个作品分类并放大原图](docs/portfolio/frontend-demo.gif)
 
@@ -20,7 +20,7 @@
 
 | 分类 | 展示内容 |
 | --- | --- |
-| AI coding | XAJ 洪水预报平台原界面与预报效果，HydroLab 水文计算助手运行录屏 |
+| AI coding | ① XAJ 洪水预报平台 ② XAJ 洪水预报结果 ③ HydroLab 水文计算助手运行录屏 |
 | AI 工作流 | PKPM AI 协作建模迭代、BIMBase Skills 协作图谱、Dify 合同审查 |
 | 产品 PPT | 产品技术框架、BIMBase 组件库、PKPM Agent、人机协作和参数化建模案例的五张原始幻灯片 |
 

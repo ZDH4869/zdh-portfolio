@@ -10,6 +10,13 @@ ENTRY = (Path(os.environ.get("PORTFOLIO_ROOT", ROOT)) / "index.html").resolve()
 GROUPS = ["AI coding", "AI 工作流", "产品 PPT"]
 
 
+def wait_for_artwork(page, filename):
+    page.wait_for_function("""(filename) => [...document.querySelectorAll('#frame img')].some(
+        image => image.currentSrc.split('/').at(-1).startsWith(filename)
+            && image.complete && image.naturalWidth > 0
+            && getComputedStyle(image).visibility === 'visible')""", arg=filename, timeout=2000)
+
+
 def verify():
     assert ENTRY.is_file(), "The standalone gallery entry point is missing"
     with sync_playwright() as playwright:
@@ -31,18 +38,20 @@ def verify():
             next_button = desktop.locator("#next-slide")
             previous = desktop.locator("#prev-slide")
             expect(title).to_have_text(re.compile("XAJ"))
-            expect(current).to_have_text("1 / 2")
+            expect(current).to_have_text("1 / 3")
 
             duration = """(milliseconds) => document.querySelector('#progress-bar').getAnimations()
                 .some(animation => animation.effect.getTiming().duration === milliseconds)"""
             desktop.wait_for_function(duration, arg=2500, timeout=2000)
             desktop.clock.run_for(2550)
+            expect(title).to_have_text("XAJ 洪水预报结果")
+            expect(current).to_have_text("2 / 3")
+            wait_for_artwork(desktop, "xaj-result-")
+            desktop.wait_for_function(duration, arg=2500, timeout=2000)
+            desktop.clock.run_for(2550)
             expect(title).to_have_text(re.compile("HydroLab"))
-            expect(current).to_have_text("2 / 2")
-            desktop.wait_for_function("""() => [...document.querySelectorAll('#frame img')].some(
-                image => image.currentSrc.endsWith('/hydrolab-animation.webp')
-                    && image.complete && image.naturalWidth > 0
-                    && getComputedStyle(image).visibility === 'visible')""", timeout=2000)
+            expect(current).to_have_text("3 / 3")
+            wait_for_artwork(desktop, "hydrolab-animation.webp")
             desktop.wait_for_function(duration, arg=4000, timeout=2000)
             desktop.clock.run_for(4050)
             expect(desktop.get_by_role("button", name="AI 工作流", exact=True)).to_have_attribute("aria-current", "true")
@@ -78,6 +87,11 @@ def verify():
             expect(desktop.locator("#viewer-title")).to_have_text("XAJ 洪水预报结果")
             desktop.keyboard.press("Escape")
             expect(desktop.locator("#viewer")).to_be_hidden()
+            next_button.click()
+            expect(title).to_have_text("XAJ 洪水预报结果")
+            desktop.locator("#expand-artwork").click()
+            expect(desktop.locator("#viewer-image")).to_have_attribute("src", re.compile(r"/xaj-result\.png$"))
+            desktop.keyboard.press("Escape")
             assert not errors, errors
 
             mobile = browser.new_page(
@@ -96,6 +110,9 @@ def verify():
             assert heading.evaluate("(el) => el.offsetHeight <= Math.ceil(parseFloat(getComputedStyle(el).lineHeight))")
             mobile.set_viewport_size({"width": 390, "height": 844})
             expect(mobile.locator("#expand-artwork img").first).to_be_visible()
+            mobile.locator("#next-slide").click()
+            expect(mobile.locator("#slide-position")).to_have_text("2 / 3")
+            wait_for_artwork(mobile, "xaj-result-")
             mobile.locator("#next-slide").click()
             expect(mobile.locator("#frame img").last).to_have_attribute("src", re.compile(r"/hydrolab-poster\.webp$"))
             mobile.get_by_role("button", name="AI 工作流", exact=True).click()
